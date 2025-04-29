@@ -172,3 +172,13 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Ignoring processed data
+data_processing\preprocessed_data
+
+data
+
+data_processing\models
+
+
+
