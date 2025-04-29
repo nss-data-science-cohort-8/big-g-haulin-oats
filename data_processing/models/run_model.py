@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import mlflow
 from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeRegressor
+from xgboost import XGBRegressor
 from sklearn.svm import SVC
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 
@@ -14,6 +16,12 @@ mlflow.autolog()
 with mlflow.start_run():
     train_data_file_path = f"../preprocessed_data/{file_name}_train.csv"
     test_data_file_path = f"../preprocessed_data/{file_name}_test.csv"
+
+    mlflow.log_param("train_data_file_path", train_data_file_path)
+    mlflow.log_param("test_data_file_path", test_data_file_path)
+
+    mlflow.log_artifact(train_data_file_path, artifact_path="data")
+    mlflow.log_artifact(test_data_file_path, artifact_path="data")
 
     train_df = pd.read_csv(train_data_file_path)
     test_df = pd.read_csv(test_data_file_path)
@@ -28,7 +36,8 @@ with mlflow.start_run():
     X_test = test_df.iloc[:, 1:]
 
     #simple_model = SVC(class_weight='balanced', probability=True, random_state=42)
-    simple_model = LogisticRegression(max_iter=1000, class_weight='balanced', random_state=42)
+    #simple_model = LogisticRegression(max_iter=1000, class_weight='balanced', random_state=42)
+    simple_model = DecisionTreeRegressor(random_state=42)
     simple_model.fit(X_train, y_train)
     y_pred = simple_model.predict(X_test)
 
