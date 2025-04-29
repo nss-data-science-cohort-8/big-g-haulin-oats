@@ -174,11 +174,11 @@ cython_debug/
 .pypirc
 
 # Ignoring processed data
-data_processing\preprocessed_data
+data_processing/preprocessed_data
 
 data
 
-data_processing\models
+data_processing/models
 
 
 
