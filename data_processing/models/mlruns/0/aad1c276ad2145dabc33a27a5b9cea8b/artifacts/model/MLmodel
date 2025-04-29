@@ -1,0 +1,30 @@
+artifact_path: model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.4
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.6.1
+is_signature_from_type_hint: false
+mlflow_version: 2.22.0
+model_size_bytes: 927
+model_uuid: 7fce3ee2cb7d45c38407868f9a8af90f
+prompts: null
+run_id: aad1c276ad2145dabc33a27a5b9cea8b
+signature:
+  inputs: '[{"type": "double", "name": "EngineOilPressure", "required": true}, {"type":
+    "double", "name": "Throttle", "required": true}, {"type": "double", "name": "FuelTemperature",
+    "required": true}, {"type": "double", "name": "FuelLtd", "required": true}, {"type":
+    "double", "name": "EngineTimeLtd", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-04-29 02:48:45.743384'

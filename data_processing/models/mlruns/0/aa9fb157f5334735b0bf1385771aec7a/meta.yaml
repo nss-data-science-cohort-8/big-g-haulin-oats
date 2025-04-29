@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/data_processing/models/mlruns/0/aa9fb157f5334735b0bf1385771aec7a/artifacts
+end_time: 1745891033116
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: aa9fb157f5334735b0bf1385771aec7a
+run_name: bemused-sheep-953
+run_uuid: aa9fb157f5334735b0bf1385771aec7a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745891004680
+status: 3
+tags: []
+user_id: irela

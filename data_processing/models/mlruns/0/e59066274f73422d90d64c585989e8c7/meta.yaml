@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/data_processing/models/mlruns/0/e59066274f73422d90d64c585989e8c7/artifacts
+end_time: 1745892256556
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e59066274f73422d90d64c585989e8c7
+run_name: upbeat-smelt-693
+run_uuid: e59066274f73422d90d64c585989e8c7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745892232696
+status: 3
+tags: []
+user_id: irela

@@ -1,0 +1,8 @@
+digest: 3125d95b
+name: dataset
+profile: '{"num_rows": 521709, "num_elements": 521709}'
+schema: '{"mlflow_colspec": [{"type": "double", "name": "EngineOilPressure", "required":
+  true}]}'
+source: '{"tags": {"mlflow.user": "irela", "mlflow.source.name": "c:\\Users\\irela\\anaconda3\\Lib\\site-packages\\ipykernel_launcher.py",
+  "mlflow.source.type": "LOCAL"}}'
+source_type: code

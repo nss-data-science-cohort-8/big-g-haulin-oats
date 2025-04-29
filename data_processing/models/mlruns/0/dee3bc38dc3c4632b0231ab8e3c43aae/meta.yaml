@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/data_processing/models/mlruns/0/dee3bc38dc3c4632b0231ab8e3c43aae/artifacts
+end_time: 1745894959329
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: dee3bc38dc3c4632b0231ab8e3c43aae
+run_name: magnificent-auk-558
+run_uuid: dee3bc38dc3c4632b0231ab8e3c43aae
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745894946484
+status: 3
+tags: []
+user_id: irela

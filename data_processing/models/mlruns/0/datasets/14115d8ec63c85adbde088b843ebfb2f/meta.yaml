@@ -1,0 +1,10 @@
+digest: 48a30a86
+name: dataset
+profile: '{"num_rows": 521709, "num_elements": 2608545}'
+schema: '{"mlflow_colspec": [{"type": "double", "name": "EngineOilPressure", "required":
+  true}, {"type": "double", "name": "Throttle", "required": false}, {"type": "double",
+  "name": "FuelTemperature", "required": false}, {"type": "double", "name": "FuelLtd",
+  "required": false}, {"type": "double", "name": "EngineTimeLtd", "required": false}]}'
+source: '{"tags": {"mlflow.user": "irela", "mlflow.source.name": "run_model.py", "mlflow.source.type":
+  "LOCAL", "mlflow.source.git.commit": "d262849faad37f62cdca36455c27875389f9263e"}}'
+source_type: code

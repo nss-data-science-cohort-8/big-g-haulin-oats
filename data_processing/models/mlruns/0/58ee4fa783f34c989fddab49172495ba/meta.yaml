@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/data_processing/models/mlruns/0/58ee4fa783f34c989fddab49172495ba/artifacts
+end_time: 1745892667597
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 58ee4fa783f34c989fddab49172495ba
+run_name: dashing-lynx-250
+run_uuid: 58ee4fa783f34c989fddab49172495ba
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745892648387
+status: 3
+tags: []
+user_id: irela
