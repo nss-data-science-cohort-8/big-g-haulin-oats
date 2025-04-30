@@ -2,14 +2,14 @@
 import pandas as pd
 import numpy as np
 import mlflow
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression, RidgeClassifier
 from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
 #from xgboost import XGBRegressor
 from sklearn.svm import SVC
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 
 # File name for the dataset
-file_name = 'simple_test_04_29'
+file_name = 'new_updated_serv_loc_removed_04_29'
 
 mlflow.set_experiment("big-g-haulin-oats")
 mlflow.autolog()
@@ -38,7 +38,8 @@ with mlflow.start_run():
 
     #simple_model = SVC(class_weight='balanced', probability=True, random_state=42)
     #simple_model = LogisticRegression(max_iter=1000, class_weight='balanced', random_state=42)
-    simple_model = DecisionTreeClassifier(max_depth=8, random_state=42)
+    simple_model = DecisionTreeClassifier(random_state=42)
+    #simple_model = RidgeClassifier(alpha=1.0, random_state=42)  # Using RidgeClassifier as an example
     simple_model.fit(X_train, y_train)
     y_pred = simple_model.predict(X_test)
 
