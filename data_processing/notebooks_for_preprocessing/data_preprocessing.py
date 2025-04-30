@@ -60,37 +60,40 @@ def create_target_cols(df, time_limit=2):
 
     return remove_after_derate(df)
 
-# Convert diagnostic columns to appropriate dtypes
-for col, dtype in {
-    "AcceleratorPedal":"float16",
-    "BarometricPressure":"float16",
-    "CruiseControlActive":"bool",
-    "CruiseControlSetSpeed":"float16",
-    "DistanceLtd":"float16",
-    "EngineCoolantTemperature":"float16",
-    "EngineLoad":"float16",
-    "EngineOilPressure":"float16",
-    "EngineOilTemperature":"float16",
-    "EngineRpm":"float16",
-    "EngineTimeLtd":"float16",
-    "FuelLevel":"float16",
-    "FuelLtd":"float32",
-    "FuelRate":"float16",
-    "FuelTemperature":"float16",
-    "IgnStatus":"bool",
-    "IntakeManifoldTemperature":"float16",
-    "ParkingBrake":"bool",
-    "Speed":"float16",
-    "SwitchedBatteryVoltage":"float16",
-    "Throttle":"float16",
-    "TurboBoostPressure":"float16",
-    "eventDescription":"str",
-    "EquipmentID":"str"
-}.items():
-    if dtype == 'bool':
-        faults_and_diagnostics[col] = faults_and_diagnostics[col].astype('bool')
-    else:
-        faults_and_diagnostics[col] = pd.to_numeric(faults_and_diagnostics[col], errors='coerce').replace([np.inf, -np.inf], np.nan)
+def convert_diagnostic_cols_to_numeric(df):
+    # Convert diagnostic columns to appropriate dtypes
+    for col, dtype in {
+        "AcceleratorPedal":"float16",
+        "BarometricPressure":"float16",
+        "CruiseControlActive":"bool",
+        "CruiseControlSetSpeed":"float16",
+        "DistanceLtd":"float16",
+        "EngineCoolantTemperature":"float16",
+        "EngineLoad":"float16",
+        "EngineOilPressure":"float16",
+        "EngineOilTemperature":"float16",
+        "EngineRpm":"float16",
+        "EngineTimeLtd":"float16",
+        "FuelLevel":"float16",
+        "FuelLtd":"float32",
+        "FuelRate":"float16",
+        "FuelTemperature":"float16",
+        "IgnStatus":"bool",
+        "IntakeManifoldTemperature":"float16",
+        "ParkingBrake":"bool",
+        "Speed":"float16",
+        "SwitchedBatteryVoltage":"float16",
+        "Throttle":"float16",
+        "TurboBoostPressure":"float16",
+        "eventDescription":"str",
+        "EquipmentID":"str"
+    }.items():
+        if dtype == 'bool':
+            df[col] = df[col].astype('bool')
+        else:
+            df[col] = pd.to_numeric(df[col], errors='coerce').replace([np.inf, -np.inf], np.nan)
+        
+        return df
 
 def ffill_nans(df): # alternatively try interpolation, moving averages, KNeighbors
     """
@@ -103,6 +106,7 @@ def ffill_nans(df): # alternatively try interpolation, moving averages, KNeighbo
 
     return df.groupby('EquipmentID', group_keys=False).apply(fill_group)
 
+faults_and_diagnostics = convert_diagnostic_cols_to_numeric(faults_and_diagnostics)
 # Separate training and testing data based on before and after 2019-01-01
 faults_and_diagnostics_train = ffill_nans(create_target_cols(remove_service_locations(faults_and_diagnostics[faults_and_diagnostics['EventTimeStamp']<'2019-01-01'])))
 faults_and_diagnostics_test = ffill_nans(create_target_cols(remove_service_locations(faults_and_diagnostics[(faults_and_diagnostics['EventTimeStamp']>='2019-01-01') & (faults_and_diagnostics['EventTimeStamp']<='2024-01-01')])))
