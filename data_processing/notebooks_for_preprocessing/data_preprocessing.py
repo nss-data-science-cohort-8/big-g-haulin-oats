@@ -1,4 +1,3 @@
-
 # Import statements
 import pandas as pd
 import numpy as np
@@ -63,7 +62,7 @@ def create_target_cols(df, time_limit=2):
     Create target columns for the dataset.
     """
     # Create target column for Full Derate
-    df['FullDerate'] = (df['spn'] == 5246).astype('int8')
+    df['FullDerate'] = (df['spn'] == 5246).astype('int')
     # Order data by truck (EquipmentID) and time
     df = df.sort_values(['EquipmentID', 'EventTimeStamp'])
     # Ensure time is datetime
@@ -93,8 +92,6 @@ def create_target_cols(df, time_limit=2):
 
     return remove_after_derate(df)
 
-
-
 def ffill_nans(df): # alternatively try interpolation, moving averages, KNeighbors
     """
     Forward fill values for each EquipmentID group, resetting after each FullDerate == 1.
@@ -116,12 +113,20 @@ def KNeighborsImputer(df, n_neighbors=5):
     return df_imputed
 
 # Separate training and testing data based on before and after 2019-01-01
-#faults_and_diagnostics_train = create_target_cols(ffill_nans(remove_service_locations(faults_and_diagnostics[faults_and_diagnostics['EventTimeStamp']<'2019-01-01'])))
-#faults_and_diagnostics_test = create_target_cols(ffill_nans(remove_service_locations(faults_and_diagnostics[(faults_and_diagnostics['EventTimeStamp']>='2019-01-01') & (faults_and_diagnostics['EventTimeStamp']<='2024-01-01')])))
-
-def xy_train_test_split(feature_cols, target_col):
+def xy_train_test_split(faults_filepath, diagnostics_filepath, feature_cols, target_col):
     #X_train = KNeighborsImputer(faults_and_diagnostics_train[feature_cols])
     #X_test = KNeighborsImputer(faults_and_diagnostics_test[feature_cols])
+    faults_and_diagnostics = remove_service_locations(faults_filepath, diagnostics_filepath, radius=.05)
+
+    df_train = faults_and_diagnostics[faults_and_diagnostics['EventTimeStamp']<'2019-01-01']
+    df_test = faults_and_diagnostics[(faults_and_diagnostics['EventTimeStamp']>='2019-01-01') & (faults_and_diagnostics['EventTimeStamp']<='2024-01-01')]
+    
+    df_target_train = create_target_cols(df_train)
+    df_target_test = create_target_cols(df_test)
+  
+    faults_and_diagnostics_train = ffill_nans(df_target_train)
+    faults_and_diagnostics_test = ffill_nans(df_target_test)
+
     X_train = faults_and_diagnostics_train[feature_cols]
     X_test = faults_and_diagnostics_test[feature_cols]
     y_train = faults_and_diagnostics_train[target_col]
@@ -137,8 +142,8 @@ def save_to_csv(train_df, test_df, file_name):
     """
     Save the train and test dataframes to CSV files.
     """
-    train_file_path = f"../preprocessed_data/{file_name}_train.csv"
-    test_file_path = f"../preprocessed_data/{file_name}_test.csv"
+    train_file_path = f"{file_name}_train.csv"
+    test_file_path = f"{file_name}_test.csv"
     
     train_df.to_csv(train_file_path, index=False)
     test_df.to_csv(test_file_path, index=False)
