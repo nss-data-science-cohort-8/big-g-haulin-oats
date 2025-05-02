@@ -9,7 +9,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 
 # File name for the dataset
-file_name = 'new_updated_serv_loc_removed_04_29'
+file_name = 'adding_more_numeric_daignostics_05_01'
 
 mlflow.set_experiment("big-g-haulin-oats")
 mlflow.autolog()
