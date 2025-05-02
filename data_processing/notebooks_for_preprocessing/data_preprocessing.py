@@ -3,15 +3,47 @@
 import pandas as pd
 import numpy as np
 
-# Read in data
-faults = pd.read_csv("../../data/J1939Faults.csv")
-diagnostics = pd.read_csv("../../data/VehicleDiagnosticOnboardData.csv").pivot(index='FaultId', columns='Name', values='Value') # Immediately pivot diagnostic data on FaultId to then be merged
-faults_and_diagnostics = faults.merge(diagnostics, how='left', left_on='RecordID', right_on='FaultId')
-
-def remove_service_locations(df, radius=.05):
+def remove_service_locations(faults_filepath, diagnostics_filepath, radius=.05):
     """
     Remove data points that are near service locations.
     """
+    faults = pd.read_csv(faults_filepath)
+    diagnostics = pd.read_csv(diagnostics_filepath).pivot(index='FaultId', columns='Name', values='Value') # Immediately pivot diagnostic data on FaultId to then be merged
+
+    df = faults.merge(diagnostics, how='left', left_on='RecordID', right_on='FaultId')
+
+    # Convert diagnostic columns to appropriate dtypes
+    for col, dtype in {
+        "AcceleratorPedal":"float16",
+        "BarometricPressure":"float16",
+        "CruiseControlActive":"bool",
+        "CruiseControlSetSpeed":"float16",
+        "DistanceLtd":"float16",
+        "EngineCoolantTemperature":"float16",
+        "EngineLoad":"float16",
+        "EngineOilPressure":"float16",
+        "EngineOilTemperature":"float16",
+        "EngineRpm":"float16",
+        "EngineTimeLtd":"float16",
+        "FuelLevel":"float16",
+        "FuelLtd":"float32",
+        "FuelRate":"float16",
+        "FuelTemperature":"float16",
+        "IgnStatus":"bool",
+        "IntakeManifoldTemperature":"float16",
+        "ParkingBrake":"bool",
+        "Speed":"float16",
+        "SwitchedBatteryVoltage":"float16",
+        "Throttle":"float16",
+        "TurboBoostPressure":"float16",
+        "eventDescription":"str",
+        "EquipmentID":"str"
+    }.items():
+        if dtype == 'bool':
+            df[col] = df[col].astype('bool')
+        else:
+            df[col] = pd.to_numeric(df[col], errors='coerce').replace([np.inf, -np.inf], np.nan)
+
     # Define service locations
     service_locations = {
         'Location1': (36.0666667, -86.4347222), 
@@ -61,37 +93,7 @@ def create_target_cols(df, time_limit=2):
 
     return remove_after_derate(df)
 
-# Convert diagnostic columns to appropriate dtypes
-for col, dtype in {
-    "AcceleratorPedal":"float16",
-    "BarometricPressure":"float16",
-    "CruiseControlActive":"bool",
-    "CruiseControlSetSpeed":"float16",
-    "DistanceLtd":"float16",
-    "EngineCoolantTemperature":"float16",
-    "EngineLoad":"float16",
-    "EngineOilPressure":"float16",
-    "EngineOilTemperature":"float16",
-    "EngineRpm":"float16",
-    "EngineTimeLtd":"float16",
-    "FuelLevel":"float16",
-    "FuelLtd":"float32",
-    "FuelRate":"float16",
-    "FuelTemperature":"float16",
-    "IgnStatus":"bool",
-    "IntakeManifoldTemperature":"float16",
-    "ParkingBrake":"bool",
-    "Speed":"float16",
-    "SwitchedBatteryVoltage":"float16",
-    "Throttle":"float16",
-    "TurboBoostPressure":"float16",
-    "eventDescription":"str",
-    "EquipmentID":"str"
-}.items():
-    if dtype == 'bool':
-        faults_and_diagnostics[col] = faults_and_diagnostics[col].astype('bool')
-    else:
-        faults_and_diagnostics[col] = pd.to_numeric(faults_and_diagnostics[col], errors='coerce').replace([np.inf, -np.inf], np.nan)
+
 
 def ffill_nans(df): # alternatively try interpolation, moving averages, KNeighbors
     """
@@ -104,11 +106,22 @@ def ffill_nans(df): # alternatively try interpolation, moving averages, KNeighbo
 
     return df.groupby('EquipmentID', group_keys=False).apply(fill_group)
 
+def KNeighborsImputer(df, n_neighbors=5):
+    """
+    KNeighbors imputer for missing values.
+    """
+    from sklearn.impute import KNNImputer
+    imputer = KNNImputer(n_neighbors=n_neighbors)
+    df_imputed = pd.DataFrame(imputer.fit_transform(df), columns=df.columns)
+    return df_imputed
+
 # Separate training and testing data based on before and after 2019-01-01
-faults_and_diagnostics_train = ffill_nans(create_target_cols(remove_service_locations(faults_and_diagnostics[faults_and_diagnostics['EventTimeStamp']<'2019-01-01'])))
-faults_and_diagnostics_test = ffill_nans(create_target_cols(remove_service_locations(faults_and_diagnostics[(faults_and_diagnostics['EventTimeStamp']>='2019-01-01') & (faults_and_diagnostics['EventTimeStamp']<='2024-01-01')])))
+#faults_and_diagnostics_train = create_target_cols(ffill_nans(remove_service_locations(faults_and_diagnostics[faults_and_diagnostics['EventTimeStamp']<'2019-01-01'])))
+#faults_and_diagnostics_test = create_target_cols(ffill_nans(remove_service_locations(faults_and_diagnostics[(faults_and_diagnostics['EventTimeStamp']>='2019-01-01') & (faults_and_diagnostics['EventTimeStamp']<='2024-01-01')])))
 
 def xy_train_test_split(feature_cols, target_col):
+    #X_train = KNeighborsImputer(faults_and_diagnostics_train[feature_cols])
+    #X_test = KNeighborsImputer(faults_and_diagnostics_test[feature_cols])
     X_train = faults_and_diagnostics_train[feature_cols]
     X_test = faults_and_diagnostics_test[feature_cols]
     y_train = faults_and_diagnostics_train[target_col]
