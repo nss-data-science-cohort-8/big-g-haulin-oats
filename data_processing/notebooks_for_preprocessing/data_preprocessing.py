@@ -73,6 +73,7 @@ def create_target_cols(df, time_limit=2):
     df['NextDerateTime'] = df.groupby('EquipmentID')['NextDerateTime'].transform('bfill')
     df['HoursUntilNextDerate'] = (df['NextDerateTime'] - df['EventTimeStamp']).dt.total_seconds() / 3600.0
     df['DerateInNextTwoHours'] = np.where(df['HoursUntilNextDerate'] <= 2, 1, 0)
+    df['DerateInNextTwentyFourHours'] = np.where(df['HoursUntilNextDerate'] <= 24, 1, 0)
 
     # throw out anything after a derate for a short amount of time
     def remove_after_derate(df, time_limit=time_limit):
@@ -104,29 +105,79 @@ def ffill_nans(df): # alternatively try interpolation, moving averages, KNeighbo
     return df.groupby('EquipmentID', group_keys=False).apply(fill_group)
 
 def KNeighborsImputer(df, n_neighbors=5):
+    # Do not include target
     """
-    KNeighbors imputer for missing values.
+    KNeighbors imputer for missing values on numeric columns only.
     """
     from sklearn.impute import KNNImputer
+
+    # OHE first
+
+    numeric_cols = df.select_dtypes(include=[np.number]).columns
+    non_numeric_cols = df.select_dtypes(exclude=[np.number]).columns
+
+
+
     imputer = KNNImputer(n_neighbors=n_neighbors)
-    df_imputed = pd.DataFrame(imputer.fit_transform(df), columns=df.columns)
+    numeric_imputed_df = pd.DataFrame(imputer.fit_transform(df[numeric_cols]), columns=numeric_cols, index=df.index)
+    df_imputed = pd.concat([numeric_imputed_df, df[non_numeric_cols]], axis=1)
+
     return df_imputed
 
+# Try SMOTE for imputation
+def SMOTEImputer(df, target_col, feature_cols, n_neighbors=5):
+    """
+    Apply SMOTE only on feature_cols and target_col.
+    """
+    from imblearn.over_sampling import SMOTE
+
+    df = df[feature_cols + [target_col]].dropna()
+    X = df[feature_cols]
+    y = df[target_col]
+
+    smote = SMOTE(sampling_strategy='auto', k_neighbors=n_neighbors, random_state=42)
+    X_resampled, y_resampled = smote.fit_resample(X, y)
+
+    df_resampled = pd.DataFrame(X_resampled, columns=feature_cols)
+    df_resampled[target_col] = y_resampled
+    return df_resampled
+
 # Separate training and testing data based on before and after 2019-01-01
-def xy_train_test_split(faults_filepath, diagnostics_filepath, feature_cols, target_col):
+def xy_train_test_split(faults_filepath, diagnostics_filepath, feature_cols, target_col, imputer='ffill', SMOTE=False):
     #X_train = KNeighborsImputer(faults_and_diagnostics_train[feature_cols])
     #X_test = KNeighborsImputer(faults_and_diagnostics_test[feature_cols])
+    print("Now removing service locations...")
     faults_and_diagnostics = remove_service_locations(faults_filepath, diagnostics_filepath, radius=.05)
 
     df_train = faults_and_diagnostics[faults_and_diagnostics['EventTimeStamp']<'2019-01-01']
     df_test = faults_and_diagnostics[(faults_and_diagnostics['EventTimeStamp']>='2019-01-01') & (faults_and_diagnostics['EventTimeStamp']<='2024-01-01')]
     
+    print(f"Train set size: {df_train.shape}")
+    print("Now creating target columns...")
     df_target_train = create_target_cols(df_train)
     df_target_test = create_target_cols(df_test)
-  
-    faults_and_diagnostics_train = ffill_nans(df_target_train)
-    faults_and_diagnostics_test = ffill_nans(df_target_test)
+    
+    if imputer == 'KNeighbors':
+        print("Now imputing missing values with KNeighborsImputer...")
+        from sklearn.impute import KNNImputer
+        imputer = KNNImputer()
+        imputer.fit(df_target_train[feature_cols])
+        print(f"Now imputing on these columns: {feature_cols}")
 
+        faults_and_diagnostics_train[feature_cols] = imputer.transform(df_target_train[feature_cols])
+        faults_and_diagnostics_test[feature_cols] = imputer.transform(df_target_test[feature_cols])
+
+    elif imputer == 'ffill':
+        print("Now imputing missing values with ffill...")
+        faults_and_diagnostics_train = ffill_nans(df_target_train[feature_cols])
+        faults_and_diagnostics_test = ffill_nans(df_target_test[feature_cols])
+    else:
+        raise ValueError("Invalid imputer type. Choose 'KNeighbors' or 'ffill'.")
+    
+    if SMOTE:
+        print("Now balancing train dataset with SMOTE...")
+        faults_and_diagnostics_train = SMOTEImputer(faults_and_diagnostics_train, target_col, feature_cols)
+    
     X_train = faults_and_diagnostics_train[feature_cols]
     X_test = faults_and_diagnostics_test[feature_cols]
     y_train = faults_and_diagnostics_train[target_col]
