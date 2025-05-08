@@ -144,9 +144,12 @@ def impute_missing_values(train_df, test_df, method='ffill'):
 
         # Only numeric data
         cols_to_impute = train_df.select_dtypes(include=[np.number]).columns
+        # Remove target columns
+        target_cols = ['FullDerate', 'NextDerateTime', 'HoursUntilNextDerate', 'DerateInNextTwoHours', 'DerateInNextTwentyFourHours']
+        cols_to_impute = [col for col in cols_to_impute if col not in target_cols]
 
+        # Use brute force method for KNNImputer
         numeric_imputer = KNNImputer(n_neighbors=n_neighbors)
-
         # Fit the imputer on the training data
         numeric_imputer.fit(train_df[cols_to_impute])
 
@@ -158,14 +161,14 @@ def impute_missing_values(train_df, test_df, method='ffill'):
     
     # Designate method for imputation
     if method == 'ffill':
-        imputed_train_df, imputed_test_df = ffill_nans(train_df, test_df)
+        train_df, test_df = ffill_nans(train_df, test_df)
     elif method == 'KNeighbors':
-        imputed_train_df, imputed_test_df = KNeighborsImputer(train_df, test_df)
+        train_df, test_df = KNeighborsImputer(train_df, test_df)
     else:
         # If the method is not recognized, raise an error
         raise ValueError("Invalid imputation method. Choose 'ffill' or 'KNeighbors'.")
 
-    return imputed_train_df, imputed_test_df
+    return train_df, test_df
 
 def create_target_cols(df):
     """
@@ -196,7 +199,8 @@ def remove_after_derate(df, time_limit=2):
     df['TimeAfterDerate'] = (df['EventTimeStamp'] - df['PrevDerateTime']).dt.total_seconds() / 3600.0
 
     # Filter out rows where TimeAfterDerate is less than the time limit while keeping rows if no derate occurs for that truck
-    df = df[df['TimeAfterDerate'].isna() | ((df['TimeAfterDerate'] > time_limit) | (df['FullDerate'] != 0))]
+    #df = df[df['TimeAfterDerate'].isna() | ((df['TimeAfterDerate'] > time_limit) | (df['FullDerate'] != 0))]
+    df = df[df['TimeAfterDerate'].isna() | ((df['TimeAfterDerate'] > time_limit))]
 
     return df.drop(columns=['PrevDerateTime', 'TimeAfterDerate'])
 
@@ -224,15 +228,17 @@ def clean_data(faults_filepath, diagnostics_filepath, split_date='2019-01-01', r
     # Remove service locations and unnecessary columns
     print("Removing service locations and unnecessary columns...")
     df = remove_data(df, remove_service_locs=remove_service_locs, unnecessary_cols=unnecessary_cols, nan_threshold=nan_threshold)
-    # Create target columns
-    print("Creating target columns...")
-    df = create_target_cols(df)
-    # Remove data points that are after a derate for a certain time limit
-    print("Removing data occuring right after a derate...")
-    df = remove_after_derate(df)
     # Split the data into training and testing sets
     print("Splitting data...")
     train_df, test_df = split_data(df, split_date=split_date)
+    # Create target columns
+    print("Creating target columns...")
+    train_df = create_target_cols(train_df)
+    test_df = create_target_cols(test_df)
+    # Remove data points that are after a derate for a certain time limit
+    print("Removing data occuring right after a derate...")
+    train_df = remove_after_derate(train_df)
+    test_df = remove_after_derate(test_df)
     # Scale and OHE the data
     print("Scaling and One-hot encoding the data...")
     train_df, test_df = scale_and_ohe_data(train_df, test_df)
