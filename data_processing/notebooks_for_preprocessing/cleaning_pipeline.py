@@ -21,12 +21,15 @@ def remove_service_locations(df, radius=.05):
         'Location3': (36.1950, -83.174722) 
     }
 
+    print("Number of rows before removing service locations:")
+    print(df.shape[0])
     # Calculate distance to each service location and filter out points within a certain radius
     for loc, coords in service_locations.items():
         df['DistanceTo' + loc] = np.sqrt((df['Latitude'] - coords[0])**2 + (df['Longitude'] - coords[1])**2)
         df = df[df['DistanceTo' + loc] > radius] 
         df = df.drop(columns='DistanceTo' + loc)
-
+    print("Number of rows after removing service locations:")
+    print(df.shape[0])
     return df
 
 def remove_columns_with_nan_threshold(df, threshold):
@@ -192,6 +195,8 @@ def remove_after_derate(df, time_limit=2):
     """
     Remove data points that are after a derate for a certain time limit.
     """
+    print("Number of rows before removing data after derate:")
+    print(df.shape[0])
     df['PrevDerateTime'] = df.where(df['FullDerate'] == 1)['EventTimeStamp']
     df['PrevDerateTime'] = df.groupby('EquipmentID')['PrevDerateTime'].transform('ffill')
 
@@ -201,7 +206,8 @@ def remove_after_derate(df, time_limit=2):
     # Filter out rows where TimeAfterDerate is less than the time limit while keeping rows if no derate occurs for that truck
     #df = df[df['TimeAfterDerate'].isna() | ((df['TimeAfterDerate'] > time_limit) | (df['FullDerate'] != 0))]
     df = df[df['TimeAfterDerate'].isna() | ((df['TimeAfterDerate'] > time_limit))]
-
+    print("Number of rows after removing data after derate:")
+    print(df.shape[0])
     return df.drop(columns=['PrevDerateTime', 'TimeAfterDerate'])
 
 def split_data(df, split_date='2019-01-01'):
