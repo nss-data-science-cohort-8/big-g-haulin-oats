@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/da804bb5881040f7b92e017ed9aea0f1/artifacts
+end_time: 1746824267784
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: da804bb5881040f7b92e017ed9aea0f1
+run_name: receptive-snail-566
+run_uuid: da804bb5881040f7b92e017ed9aea0f1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746824160454
+status: 3
+tags: []
+user_id: irela

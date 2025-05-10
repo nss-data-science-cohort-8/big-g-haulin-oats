@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/d879266e73b946479bbf695e168dc71f/artifacts
+end_time: 1746825625457
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: d879266e73b946479bbf695e168dc71f
+run_name: capable-gnat-321
+run_uuid: d879266e73b946479bbf695e168dc71f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746825539440
+status: 3
+tags: []
+user_id: irela
