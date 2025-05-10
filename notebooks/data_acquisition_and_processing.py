@@ -80,7 +80,7 @@ def remove_data(df, remove_service_locs=True, unnecessary_cols:list=None, nan_th
             df[col] = normalize_boolean_column(df[col])
         elif col in ['EventTimeStamp']:
             df[col] = pd.to_datetime(df[col], errors='coerce')
-        elif col in ['EquipmentID', 'spn', 'fmi']:
+        elif col in ['EquipmentID', 'spn', 'fmi']: # add LampStatus?
             df[col] = df[col].astype('str')
         else:
             # Convert to numeric and replace inf values with NaN

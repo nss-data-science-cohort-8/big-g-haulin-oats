@@ -1,0 +1,54 @@
+artifact_path: model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.4
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.6.1
+is_signature_from_type_hint: false
+mlflow_version: 2.22.0
+model_size_bytes: 1550
+model_uuid: 9f0e5bd27fb9434d83056772eff29128
+prompts: null
+run_id: ecd48e0b47454900b04f006c5b35636a
+signature:
+  inputs: '[{"type": "long", "name": "spn", "required": true}, {"type": "double",
+    "name": "BarometricPressure", "required": true}, {"type": "double", "name": "DistanceLtd",
+    "required": true}, {"type": "double", "name": "EngineCoolantTemperature", "required":
+    true}, {"type": "double", "name": "EngineLoad", "required": true}, {"type": "double",
+    "name": "EngineOilPressure", "required": true}, {"type": "double", "name": "EngineOilTemperature",
+    "required": true}, {"type": "double", "name": "EngineRpm", "required": true},
+    {"type": "double", "name": "FuelLtd", "required": true}, {"type": "double", "name":
+    "FuelRate", "required": true}, {"type": "boolean", "name": "IgnStatus", "required":
+    true}, {"type": "double", "name": "IntakeManifoldTemperature", "required": true},
+    {"type": "double", "name": "LampStatus", "required": true}, {"type": "double",
+    "name": "fmi_0", "required": true}, {"type": "double", "name": "fmi_1", "required":
+    true}, {"type": "double", "name": "fmi_10", "required": true}, {"type": "double",
+    "name": "fmi_11", "required": true}, {"type": "double", "name": "fmi_12", "required":
+    true}, {"type": "double", "name": "fmi_13", "required": true}, {"type": "double",
+    "name": "fmi_14", "required": true}, {"type": "double", "name": "fmi_15", "required":
+    true}, {"type": "double", "name": "fmi_16", "required": true}, {"type": "double",
+    "name": "fmi_17", "required": true}, {"type": "double", "name": "fmi_18", "required":
+    true}, {"type": "double", "name": "fmi_19", "required": true}, {"type": "double",
+    "name": "fmi_2", "required": true}, {"type": "double", "name": "fmi_20", "required":
+    true}, {"type": "double", "name": "fmi_21", "required": true}, {"type": "double",
+    "name": "fmi_22", "required": true}, {"type": "double", "name": "fmi_23", "required":
+    true}, {"type": "double", "name": "fmi_29", "required": true}, {"type": "double",
+    "name": "fmi_3", "required": true}, {"type": "double", "name": "fmi_31", "required":
+    true}, {"type": "double", "name": "fmi_4", "required": true}, {"type": "double",
+    "name": "fmi_5", "required": true}, {"type": "double", "name": "fmi_6", "required":
+    true}, {"type": "double", "name": "fmi_7", "required": true}, {"type": "double",
+    "name": "fmi_8", "required": true}, {"type": "double", "name": "fmi_9", "required":
+    true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-05-10 16:05:45.073791'
