@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/2cd8be7925994d9fa43003ff13bca873/artifacts
+end_time: 1746900663990
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: 2cd8be7925994d9fa43003ff13bca873
+run_name: efficient-bee-222
+run_uuid: 2cd8be7925994d9fa43003ff13bca873
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746900514461
+status: 3
+tags: []
+user_id: irela

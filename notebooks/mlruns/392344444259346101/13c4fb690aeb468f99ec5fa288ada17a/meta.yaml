@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/13c4fb690aeb468f99ec5fa288ada17a/artifacts
+end_time: 1746895072141
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: 13c4fb690aeb468f99ec5fa288ada17a
+run_name: masked-colt-770
+run_uuid: 13c4fb690aeb468f99ec5fa288ada17a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746894952533
+status: 3
+tags: []
+user_id: irela

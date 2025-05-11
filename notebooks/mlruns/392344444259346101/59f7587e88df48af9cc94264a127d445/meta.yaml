@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/59f7587e88df48af9cc94264a127d445/artifacts
+end_time: 1746895165388
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: 59f7587e88df48af9cc94264a127d445
+run_name: traveling-asp-972
+run_uuid: 59f7587e88df48af9cc94264a127d445
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746895154185
+status: 4
+tags: []
+user_id: irela

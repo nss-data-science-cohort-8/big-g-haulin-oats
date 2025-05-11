@@ -80,7 +80,7 @@ def remove_data(df, remove_service_locs=True, unnecessary_cols:list=None, nan_th
             df[col] = normalize_boolean_column(df[col])
         elif col in ['EventTimeStamp']:
             df[col] = pd.to_datetime(df[col], errors='coerce')
-        elif col in ['EquipmentID', 'spn', 'fmi']: # add LampStatus?
+        elif col in ['EquipmentID', 'spn', 'fmi', 'LampStatus']: # add LampStatus?
             df[col] = df[col].astype('str')
         else:
             # Convert to numeric and replace inf values with NaN
@@ -167,7 +167,7 @@ def scale_and_ohe_data(train_df, test_df):
     from sklearn.preprocessing import LabelEncoder
 
     # Columns not to scale or OHE
-    cols_to_exclude = ['EquipmentID', 'spn', 'FullDerate', 'NextDerateTime', 'HoursUntilNextDerate', 'DerateInNextTwoHours', 'DerateInNextTwentyFourHours']
+    cols_to_exclude = ['EquipmentID', 'spn', 'LampStatus', 'FullDerate', 'NextDerateTime', 'HoursUntilNextDerate', 'DerateInNextTwoHours', 'DerateInNextTwentyFourHours']
 
     num_cols = [col for col in train_df.select_dtypes(include=np.number).columns if col not in cols_to_exclude]
     scaler = StandardScaler().fit(train_df[num_cols])
@@ -214,7 +214,7 @@ def impute_missing_values(train_df, test_df, method='ffill'):
         cols_to_impute = train_df.select_dtypes(include=[np.number]).columns
 
         # Remove target columns
-        target_cols = ['FullDerate', 'NextDerateTime', 'HoursUntilNextDerate', 'DerateInNextTwoHours', 'DerateInNextTwentyFourHours']
+        target_cols = ['EquipmentID', 'EventTimeStamp', 'FullDerate', 'NextDerateTime', 'HoursUntilNextDerate', 'DerateInNextTwoHours', 'DerateInNextTwentyFourHours']
         cols_to_impute = [col for col in cols_to_impute if col not in target_cols]
 
         # Impute only on numeric columns

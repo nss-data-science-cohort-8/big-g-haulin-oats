@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/e701ef4b5cae4908a329cb237f5c691d/artifacts
+end_time: 1746901413026
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: e701ef4b5cae4908a329cb237f5c691d
+run_name: orderly-goat-878
+run_uuid: e701ef4b5cae4908a329cb237f5c691d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746900945029
+status: 3
+tags: []
+user_id: irela
