@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/dcd97dbde0a241c88a676a4ed4db9bf2/artifacts
+end_time: 1747173105963
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: dcd97dbde0a241c88a676a4ed4db9bf2
+run_name: nimble-cat-150
+run_uuid: dcd97dbde0a241c88a676a4ed4db9bf2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747173082677
+status: 4
+tags: []
+user_id: irela

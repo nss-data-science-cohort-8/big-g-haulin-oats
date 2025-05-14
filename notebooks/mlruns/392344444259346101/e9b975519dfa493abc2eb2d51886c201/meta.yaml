@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/e9b975519dfa493abc2eb2d51886c201/artifacts
+end_time: 1747173419240
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: e9b975519dfa493abc2eb2d51886c201
+run_name: gentle-hound-838
+run_uuid: e9b975519dfa493abc2eb2d51886c201
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747173418981
+status: 4
+tags: []
+user_id: irela

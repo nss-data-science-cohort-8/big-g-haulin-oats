@@ -1,0 +1,80 @@
+digest: 68419f6f
+name: dataset
+profile: '{"num_rows": 89928, "num_elements": 8273376}'
+schema: '{"mlflow_colspec": [{"type": "long", "name": "spn", "required": true}, {"type":
+  "double", "name": "BarometricPressure", "required": true}, {"type": "double", "name":
+  "DistanceLtd", "required": true}, {"type": "double", "name": "EngineCoolantTemperature",
+  "required": true}, {"type": "double", "name": "EngineLoad", "required": true}, {"type":
+  "double", "name": "EngineOilPressure", "required": true}, {"type": "double", "name":
+  "EngineOilTemperature", "required": true}, {"type": "double", "name": "EngineRpm",
+  "required": true}, {"type": "double", "name": "FuelLtd", "required": true}, {"type":
+  "double", "name": "FuelRate", "required": true}, {"type": "double", "name": "IntakeManifoldTemperature",
+  "required": true}, {"type": "double", "name": "fmi_0", "required": true}, {"type":
+  "double", "name": "fmi_1", "required": true}, {"type": "double", "name": "fmi_10",
+  "required": true}, {"type": "double", "name": "fmi_11", "required": true}, {"type":
+  "double", "name": "fmi_12", "required": true}, {"type": "double", "name": "fmi_13",
+  "required": true}, {"type": "double", "name": "fmi_14", "required": true}, {"type":
+  "double", "name": "fmi_15", "required": true}, {"type": "double", "name": "fmi_16",
+  "required": true}, {"type": "double", "name": "fmi_17", "required": true}, {"type":
+  "double", "name": "fmi_18", "required": true}, {"type": "double", "name": "fmi_19",
+  "required": true}, {"type": "double", "name": "fmi_2", "required": true}, {"type":
+  "double", "name": "fmi_20", "required": true}, {"type": "double", "name": "fmi_21",
+  "required": true}, {"type": "double", "name": "fmi_22", "required": true}, {"type":
+  "double", "name": "fmi_23", "required": true}, {"type": "double", "name": "fmi_29",
+  "required": true}, {"type": "double", "name": "fmi_3", "required": true}, {"type":
+  "double", "name": "fmi_31", "required": true}, {"type": "double", "name": "fmi_4",
+  "required": true}, {"type": "double", "name": "fmi_5", "required": true}, {"type":
+  "double", "name": "fmi_6", "required": true}, {"type": "double", "name": "fmi_7",
+  "required": true}, {"type": "double", "name": "fmi_8", "required": true}, {"type":
+  "double", "name": "fmi_9", "required": true}, {"type": "double", "name": "MeanBarometricPressureLast24hr",
+  "required": true}, {"type": "double", "name": "MaxBarometricPressureLast24hr", "required":
+  true}, {"type": "double", "name": "MinBarometricPressureLast24hr", "required": true},
+  {"type": "double", "name": "StdBarometricPressureLast24hr", "required": true}, {"type":
+  "double", "name": "SumBarometricPressureLast24hr", "required": true}, {"type": "double",
+  "name": "MeanDistanceLtdLast24hr", "required": true}, {"type": "double", "name":
+  "MaxDistanceLtdLast24hr", "required": true}, {"type": "double", "name": "MinDistanceLtdLast24hr",
+  "required": true}, {"type": "double", "name": "StdDistanceLtdLast24hr", "required":
+  true}, {"type": "double", "name": "SumDistanceLtdLast24hr", "required": true}, {"type":
+  "double", "name": "MeanEngineCoolantTemperatureLast24hr", "required": true}, {"type":
+  "double", "name": "MaxEngineCoolantTemperatureLast24hr", "required": true}, {"type":
+  "double", "name": "MinEngineCoolantTemperatureLast24hr", "required": true}, {"type":
+  "double", "name": "StdEngineCoolantTemperatureLast24hr", "required": true}, {"type":
+  "double", "name": "SumEngineCoolantTemperatureLast24hr", "required": true}, {"type":
+  "double", "name": "MeanEngineLoadLast24hr", "required": true}, {"type": "double",
+  "name": "MaxEngineLoadLast24hr", "required": true}, {"type": "double", "name": "MinEngineLoadLast24hr",
+  "required": true}, {"type": "double", "name": "StdEngineLoadLast24hr", "required":
+  true}, {"type": "double", "name": "SumEngineLoadLast24hr", "required": true}, {"type":
+  "double", "name": "MeanEngineOilPressureLast24hr", "required": true}, {"type": "double",
+  "name": "MaxEngineOilPressureLast24hr", "required": true}, {"type": "double", "name":
+  "MinEngineOilPressureLast24hr", "required": true}, {"type": "double", "name": "StdEngineOilPressureLast24hr",
+  "required": true}, {"type": "double", "name": "SumEngineOilPressureLast24hr", "required":
+  true}, {"type": "double", "name": "MeanEngineOilTemperatureLast24hr", "required":
+  true}, {"type": "double", "name": "MaxEngineOilTemperatureLast24hr", "required":
+  true}, {"type": "double", "name": "MinEngineOilTemperatureLast24hr", "required":
+  true}, {"type": "double", "name": "StdEngineOilTemperatureLast24hr", "required":
+  true}, {"type": "double", "name": "SumEngineOilTemperatureLast24hr", "required":
+  true}, {"type": "double", "name": "MeanEngineRpmLast24hr", "required": true}, {"type":
+  "double", "name": "MaxEngineRpmLast24hr", "required": true}, {"type": "double",
+  "name": "MinEngineRpmLast24hr", "required": true}, {"type": "double", "name": "StdEngineRpmLast24hr",
+  "required": true}, {"type": "double", "name": "SumEngineRpmLast24hr", "required":
+  true}, {"type": "double", "name": "MeanFuelLtdLast24hr", "required": true}, {"type":
+  "double", "name": "MaxFuelLtdLast24hr", "required": true}, {"type": "double", "name":
+  "MinFuelLtdLast24hr", "required": true}, {"type": "double", "name": "StdFuelLtdLast24hr",
+  "required": true}, {"type": "double", "name": "SumFuelLtdLast24hr", "required":
+  true}, {"type": "double", "name": "MeanFuelRateLast24hr", "required": true}, {"type":
+  "double", "name": "MaxFuelRateLast24hr", "required": true}, {"type": "double", "name":
+  "MinFuelRateLast24hr", "required": true}, {"type": "double", "name": "StdFuelRateLast24hr",
+  "required": true}, {"type": "double", "name": "SumFuelRateLast24hr", "required":
+  true}, {"type": "double", "name": "MeanIntakeManifoldTemperatureLast24hr", "required":
+  true}, {"type": "double", "name": "MaxIntakeManifoldTemperatureLast24hr", "required":
+  true}, {"type": "double", "name": "MinIntakeManifoldTemperatureLast24hr", "required":
+  true}, {"type": "double", "name": "StdIntakeManifoldTemperatureLast24hr", "required":
+  true}, {"type": "double", "name": "SumIntakeManifoldTemperatureLast24hr", "required":
+  true}, {"type": "double", "name": "MeanLampStatusLast24hr", "required": true}, {"type":
+  "double", "name": "MaxLampStatusLast24hr", "required": true}, {"type": "double",
+  "name": "MinLampStatusLast24hr", "required": true}, {"type": "double", "name": "StdLampStatusLast24hr",
+  "required": true}, {"type": "double", "name": "SumLampStatusLast24hr", "required":
+  true}]}'
+source: '{"tags": {"mlflow.user": "irela", "mlflow.source.name": "c:\\Users\\irela\\anaconda3\\Lib\\site-packages\\ipykernel_launcher.py",
+  "mlflow.source.type": "LOCAL"}}'
+source_type: code

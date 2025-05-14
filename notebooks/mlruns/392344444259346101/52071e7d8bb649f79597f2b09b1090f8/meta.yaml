@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/52071e7d8bb649f79597f2b09b1090f8/artifacts
+end_time: 1747169775566
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: 52071e7d8bb649f79597f2b09b1090f8
+run_name: dapper-foal-810
+run_uuid: 52071e7d8bb649f79597f2b09b1090f8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747169750739
+status: 4
+tags: []
+user_id: irela

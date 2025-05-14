@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/639b23c72bcf49938a609d2d98d74e85/artifacts
+end_time: 1747174349790
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: 639b23c72bcf49938a609d2d98d74e85
+run_name: sedate-calf-497
+run_uuid: 639b23c72bcf49938a609d2d98d74e85
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747174332535
+status: 4
+tags: []
+user_id: irela

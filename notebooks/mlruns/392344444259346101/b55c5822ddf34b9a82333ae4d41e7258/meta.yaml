@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/b55c5822ddf34b9a82333ae4d41e7258/artifacts
+end_time: 1747170252093
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: b55c5822ddf34b9a82333ae4d41e7258
+run_name: fun-trout-641
+run_uuid: b55c5822ddf34b9a82333ae4d41e7258
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747170114857
+status: 4
+tags: []
+user_id: irela

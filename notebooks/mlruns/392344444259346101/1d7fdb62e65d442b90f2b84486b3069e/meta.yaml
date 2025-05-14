@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/1d7fdb62e65d442b90f2b84486b3069e/artifacts
+end_time: 1747167359016
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: 1d7fdb62e65d442b90f2b84486b3069e
+run_name: bald-squid-560
+run_uuid: 1d7fdb62e65d442b90f2b84486b3069e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747167356482
+status: 4
+tags: []
+user_id: irela

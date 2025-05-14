@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/17bca74e3e7c4d429341f512549b6b0e/artifacts
+end_time: 1747173449097
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: 17bca74e3e7c4d429341f512549b6b0e
+run_name: resilient-sponge-764
+run_uuid: 17bca74e3e7c4d429341f512549b6b0e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747173449041
+status: 4
+tags: []
+user_id: irela

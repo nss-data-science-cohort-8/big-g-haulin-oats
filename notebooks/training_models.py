@@ -4,7 +4,8 @@
 import pandas as pd
 import numpy as np
 import mlflow
-from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score, make_scorer
+from sklearn.model_selection import RandomizedSearchCV
 
 def split_X_y(df):
     """
@@ -46,6 +47,7 @@ def start_mlflow_run(train_data_file_path, test_data_file_path, predictions_file
 
         train_df = pd.read_csv(train_data_file_path)
         test_df = pd.read_csv(test_data_file_path)
+        copy_test_df = test_df.copy()
 
         train_df = ensure_target_cols_removed(train_df)
         test_df = ensure_target_cols_removed(test_df)
@@ -82,6 +84,103 @@ def start_mlflow_run(train_data_file_path, test_data_file_path, predictions_file
         })
         predictions_df.to_csv(predictions_filepath, index=False)
         mlflow.log_artifact(predictions_filepath, artifact_path="data")
+
+        revenue_tp, revenue_fp = count_predictions(predictions_df, copy_test_df)
+        total_revenue = revenue_calc(revenue_tp, revenue_fp)
+
+        # Log business metrics
+        mlflow.log_metric("true_positives", revenue_tp)
+        mlflow.log_metric("false_positives", revenue_fp)
+        mlflow.log_metric("revenue", total_revenue)
+
+    return predictions_df
+
+def start_mlflow_randomsearch(train_data_file_path, test_data_file_path, predictions_filepath, model, param_dist=None, n_iter=10, dropna=True):
+    mlflow.set_experiment("big-g-haulin-oats")
+    mlflow.autolog()
+
+    with mlflow.start_run():
+        mlflow.log_param("train_data_file_path", train_data_file_path)
+        mlflow.log_param("test_data_file_path", test_data_file_path)
+
+        mlflow.log_artifact(train_data_file_path, artifact_path="data")
+        mlflow.log_artifact(test_data_file_path, artifact_path="data")
+
+        train_df = pd.read_csv(train_data_file_path)
+        test_df = pd.read_csv(test_data_file_path)
+
+        train_df = ensure_target_cols_removed(train_df)
+        test_df = ensure_target_cols_removed(test_df)
+
+        if dropna:
+            train_df = train_df.dropna()
+            test_df = test_df.dropna()
+        
+        X_train, y_train = split_X_y(train_df)
+        X_test, y_test = split_X_y(test_df)
+
+        if param_dist:
+            # Create way to evaluate true performance of model in CV search
+            def revenue_scorer(y_true, y_pred):
+                df = pd.DataFrame({
+                    'Actual': y_true,
+                    'Predicted': y_pred
+                })
+                tp, fp = count_predictions(df, test_df)
+                return revenue_calc(tp, fp)
+
+            revenue_score = make_scorer(revenue_scorer, greater_is_better=True)
+
+            search = RandomizedSearchCV(
+                estimator=model,
+                param_distributions=param_dist,
+                n_iter=n_iter,
+                scoring=revenue_score,
+                cv=4,
+                verbose=1,
+                n_jobs=-1,
+                random_state=42
+            )
+            search.fit(X_train, y_train)
+            model = search.best_estimator_
+
+            mlflow.log_params(search.best_params_)
+            mlflow.log_metric("cv_best_score", search.best_score_)
+        else:
+            # Fit the model
+            model.fit(X_train, y_train)
+
+        y_pred = model.predict(X_test)
+
+        # Calculate metrics on the test set
+        precision, recall, f1, accuracy = evaluate_model(y_test, y_pred)
+        print(f"Test precision: {precision}")
+        print(f"Test recall: {recall}")
+        print(f"Test F1 score: {f1}")
+        print(f"Test accuracy: {accuracy}")
+        # Log custom metrics for the test set
+        mlflow.log_metric("test_precision", precision)
+        mlflow.log_metric("test_recall", recall)
+        mlflow.log_metric("test_f1", f1)
+        mlflow.log_metric("test_accuracy", accuracy)
+
+        print("Model training and evaluation completed successfully.")
+
+        # Save predictions to a CSV file
+        predictions_df = pd.DataFrame({
+            'Actual': y_test,
+            'Predicted': y_pred
+        })
+        predictions_df.to_csv(predictions_filepath, index=False)
+        mlflow.log_artifact(predictions_filepath, artifact_path="data")
+
+        revenue_tp, revenue_fp = count_predictions(predictions_df, test_df)
+        total_revenue = revenue_calc(revenue_tp, revenue_fp)
+
+        # Log business metrics
+        mlflow.log_metric("true_positives", revenue_tp)
+        mlflow.log_metric("false_positives", revenue_fp)
+        mlflow.log_metric("revenue", total_revenue)
 
     return predictions_df
 

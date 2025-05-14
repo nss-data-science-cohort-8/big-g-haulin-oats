@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/2b0fb146804f4793986fb6cce35cb103/artifacts
+end_time: 1747173865958
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: 2b0fb146804f4793986fb6cce35cb103
+run_name: fun-snail-241
+run_uuid: 2b0fb146804f4793986fb6cce35cb103
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747173820896
+status: 3
+tags: []
+user_id: irela

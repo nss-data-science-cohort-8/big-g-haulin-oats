@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/24cee5b7c6334d63a9579c5a42f60c66/artifacts
+end_time: 1747166746452
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: 24cee5b7c6334d63a9579c5a42f60c66
+run_name: puzzled-croc-847
+run_uuid: 24cee5b7c6334d63a9579c5a42f60c66
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747155510136
+status: 4
+tags: []
+user_id: irela

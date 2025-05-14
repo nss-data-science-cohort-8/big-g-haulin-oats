@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/ea37d28adac74fdcadb3ac877dd178b9/artifacts
+end_time: 1747167237998
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: ea37d28adac74fdcadb3ac877dd178b9
+run_name: learned-hare-324
+run_uuid: ea37d28adac74fdcadb3ac877dd178b9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747167232338
+status: 4
+tags: []
+user_id: irela

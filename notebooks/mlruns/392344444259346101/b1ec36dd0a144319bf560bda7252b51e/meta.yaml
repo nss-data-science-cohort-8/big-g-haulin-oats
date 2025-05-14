@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/irela/Documents/NSS_Projects/big-g-haulin-oats/notebooks/mlruns/392344444259346101/b1ec36dd0a144319bf560bda7252b51e/artifacts
+end_time: 1747176679124
+entry_point_name: ''
+experiment_id: '392344444259346101'
+lifecycle_stage: active
+run_id: b1ec36dd0a144319bf560bda7252b51e
+run_name: efficient-lamb-401
+run_uuid: b1ec36dd0a144319bf560bda7252b51e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747176669017
+status: 4
+tags: []
+user_id: irela
